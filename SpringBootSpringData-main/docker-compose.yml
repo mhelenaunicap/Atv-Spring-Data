@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/produto_db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_PROFILES_ACTIVE: dev
+
+  postgres:
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_ROOT_PASSWORD: password
+      POSTGRES_DB: produto_db
